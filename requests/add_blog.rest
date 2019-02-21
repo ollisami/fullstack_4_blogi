@@ -1,4 +1,4 @@
-POST http://localhost:3003/api/blogs/
+POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 
 {
@@ -8,12 +8,20 @@ Content-Type: application/json
     "likes": 10
 }
 ###
-POST http://localhost:3003/api/blogs/
+POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 
 {
     "title": "Testi",
     "author": "testaaja test",
     "url": "test",
+    "likes": 1
+}
+###
+POST http://localhost:3001/api/blogs/
+Content-Type: application/json
+
+{
+    "author": "missing title and url",
     "likes": 1
 }
