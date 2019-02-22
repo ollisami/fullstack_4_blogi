@@ -58,11 +58,14 @@ describe('when there is initially some blogs saved', async () => {
 
 describe('Adding new blogs', async () => {
     test('a valid blog can be added ', async () => {
+        const validUserId = await helper.existingUserId()
+        console.log(validUserId)
         const newBlog = {
             title: "Test",
             author: "123",
             url: "test",
-            likes: 1
+            likes: 1,
+            userId: validUserId
         }
     
         await api
