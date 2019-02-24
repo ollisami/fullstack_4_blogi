@@ -53,7 +53,7 @@ blogsRouter.delete('/:id', async (request, response, next) => {
     }
 
     const user = await User.findById(decodedToken.id)
-    if (user && blog.user.toString() === user._id.toString() ) {
+    if (user && blog.user && blog.user.toString() === user._id.toString() ) {
       await blog.remove()
       response.status(204).end()
     } else {
@@ -67,19 +67,18 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 
 blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
-
-  const blog = {
-    title: body.title,
-    author: body.author,
-    url: body.url,
-    likes: body.likes
-  }
-
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+    const blog = {
+      title: body.title,
+      author: body.author,
+      url: body.url,
+      likes: body.likes,
+      user: body.user
+    }
+    const updatedBlog = await Blog.findByIdAndUpdate(body.id, blog, { new: true })
     response.json(updatedBlog.toJSON())
   } catch (exception) {
-    response.status(400).send({ error: 'malformatted id' })
+    response.status(400).send({ error: exception.message })
   }
 })
 
